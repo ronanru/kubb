@@ -136,7 +136,11 @@ importers:
       '@kubb/cli': workspace:*
       '@kubb/core': workspace:*
       '@kubb/swagger': workspace:*
-      '@kubb/swagger-msw': workspace:*
+      '@kubb/swagger-client': workspace:*
+      '@kubb/swagger-react-query': workspace:*
+      '@kubb/swagger-ts': workspace:*
+      '@kubb/swagger-zod': workspace:*
+      '@tanstack/react-query': ^4.26.1
       axios: ^1.3.4
       react: ^18.2.0
       tsup: ^6.6.3
@@ -144,7 +148,11 @@ importers:
       '@kubb/cli': link:../../packages/cli
       '@kubb/core': link:../../packages/core
       '@kubb/swagger': link:../../packages/swagger
-      '@kubb/swagger-msw': link:../../packages/swagger-msw
+      '@kubb/swagger-client': link:../../packages/swagger-client
+      '@kubb/swagger-react-query': link:../../packages/swagger-react-query
+      '@kubb/swagger-ts': link:../../packages/swagger-ts
+      '@kubb/swagger-zod': link:../../packages/swagger-zod
+      '@tanstack/react-query': 4.26.1_react@18.2.0
       axios: 1.3.4
       react: 18.2.0
       tsup: 6.6.3
