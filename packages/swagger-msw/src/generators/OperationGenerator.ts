@@ -59,13 +59,14 @@ export class OperationGenerator extends Generator<Options> {
     const schemas = this.getSchemas(operation)
 
     const sources: string[] = []
-    const entryName = `${operation.getOperationId()}EntryUrl`
+    const operationId = operation.getOperationId()
+    const entryName = `${operationId}EntryUrl`
 
-    sources.push(`
-    export const ${entryName} = 'test'
+    if (!schemas.pathParams) {
+      sources.push(`
+      export const ${entryName} = '*${path}'
     `)
-
-    console.log(schemas.pathParams)
+    }
 
     // if (schemas.pathParams) {
     //   // TODO move to it's own function(utils)
