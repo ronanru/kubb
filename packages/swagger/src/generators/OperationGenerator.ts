@@ -21,10 +21,15 @@ export type OperationSchemas = {
   request: OperationSchema
   response: OperationSchema
 }
+type InKey = 'path' | 'query'
 
 export abstract class OperationGenerator<TOptions extends { oas: Oas } = { oas: Oas }> extends Generator<TOptions> {
-  private getParametersSchema(operation: Operation, inKey: 'path' | 'query') {
-    const params = operation.getParameters().filter((v) => v.in === inKey)
+  private getParametersIn(operation: Operation, inKey: InKey): OpenAPIV3.ParameterObject[] {
+    return operation.getParameters().filter((v) => v.in === inKey)
+  }
+
+  private getParametersSchema(operation: Operation, inKey: InKey) {
+    const params = this.getParametersIn(operation, inKey)
     const refParams = operation.getParameters().filter((v) => isReference(v))
     const parameterSchemas = this.options.oas.getDefinition().components?.parameters || {}
 
@@ -54,12 +59,10 @@ export abstract class OperationGenerator<TOptions extends { oas: Oas } = { oas: 
   }
 
   getSchemas(operation: Operation): OperationSchemas {
-    const parameters = operation.getParameters()
-
-    const queryParams = parameters.filter((param) => param.in === 'query')
+    const queryParams = this.getParametersIn(operation, 'query')
     const hasQueryParams = queryParams.length
 
-    const pathParams = parameters.filter((param) => param.in === 'path')
+    const pathParams = this.getParametersIn(operation, 'path')
     const hasPathParams = pathParams.length
 
     return {
